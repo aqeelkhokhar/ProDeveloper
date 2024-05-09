@@ -30,7 +30,7 @@ function HomeScreen({navigation}: any) {
     return (
         <SafeAreaView style={{flex: 1}}>
             <View>
-                <Text onPress={() => navigation.navigate('Notification')}>
+                <Text onPress={() => navigation.navigate("Notification")}>
                     Home Screen
                 </Text>
             </View>

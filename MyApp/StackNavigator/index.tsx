@@ -13,12 +13,12 @@ function StackScreen() {
                 <Stack.Screen
                     name="drawer"
                     component={DrawerScreen}
-                    options={{headerShown: false, }}
+                    options={{headerShown: false}}
                 />
-                 <Stack.Screen
+                <Stack.Screen
                     name="Notification"
                     component={NotificationScreen}
-                    options={{ headerBackTitleVisible: false }}
+                    options={{headerBackTitleVisible: false}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

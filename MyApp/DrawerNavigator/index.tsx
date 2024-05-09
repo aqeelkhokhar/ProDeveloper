@@ -96,10 +96,13 @@ function DrawerScreen() {
     return (
         <Drawer.Navigator
             drawerContent={props => <CustomDrawerContent {...props} />}
-            screenOptions={({ navigation }) => ({
+            screenOptions={({navigation}) => ({
                 drawerType: "front",
                 headerLeft: () => (
-                    <Pressable style={{marginLeft:20}} onPress={navigation.toggleDrawer}>
+                    <Pressable
+                        style={{marginLeft: 20}}
+                        onPress={navigation.toggleDrawer}
+                    >
                         <Text>
                             <Icon name="bars" size={22} color="#51aff7" />
                         </Text>
@@ -110,7 +113,7 @@ function DrawerScreen() {
             <Drawer.Screen
                 name="tabs"
                 component={TabsScreen}
-                options={{headerShown: true, headerTitle:()=>null}}
+                options={{headerShown: true, headerTitle: () => null}}
             />
             <Drawer.Screen name="Profile" component={ProfileScreen} />
             <Drawer.Screen name="Setting" component={SettingScreen} />

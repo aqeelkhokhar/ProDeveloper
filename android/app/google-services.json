@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "528065162655",
+    "project_id": "prodeveloper-8fabc",
+    "storage_bucket": "prodeveloper-8fabc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528065162655:android:4529ba9fa69021007921aa",
+        "android_client_info": {
+          "package_name": "com.prodeveloper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRHXkkhg9wtH3z1lfDrtjxBYFCN658OZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
