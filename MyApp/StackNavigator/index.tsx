@@ -1,5 +1,4 @@
 import * as React from "react";
-import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import DrawerScreen from "../DrawerNavigator";
@@ -8,7 +7,7 @@ const Stack = createNativeStackNavigator();
 
 function StackScreen() {
     return (
-        <NavigationContainer>
+        <>
             <Stack.Navigator>
                 <Stack.Screen
                     name="drawer"
@@ -21,7 +20,7 @@ function StackScreen() {
                     options={{headerBackTitleVisible: false}}
                 />
             </Stack.Navigator>
-        </NavigationContainer>
+        </>
     );
 }
 
