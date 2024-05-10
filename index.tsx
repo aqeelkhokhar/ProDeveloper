@@ -25,8 +25,8 @@ import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 
     // Display a notification
     await notifee.displayNotification({
-      title: 'Notification Title',
-      body: 'Main body content of the notification',
+      title: message.notification.title,
+      body: message.notification.body,
       android: {
         channelId,
         // pressAction is needed if you want the notification to open the app when pressed
