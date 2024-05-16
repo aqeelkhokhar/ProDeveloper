@@ -2,7 +2,8 @@ import * as React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import DrawerScreen from "../DrawerNavigator";
-import NotificationScreen from "../NotificationScreen";
+import RegistrationScreen from "../RegistrationScreen";
+import SignInScreen from "../SignInScreen";
 const Stack = createNativeStackNavigator();
 
 function StackScreen() {
@@ -15,8 +16,13 @@ function StackScreen() {
                     options={{headerShown: false}}
                 />
                 <Stack.Screen
-                    name="Notification"
-                    component={NotificationScreen}
+                    name="Registration"
+                    component={RegistrationScreen}
+                    options={{headerBackTitleVisible: false}}
+                />
+                <Stack.Screen
+                    name="SingIn"
+                    component={SignInScreen}
                     options={{headerBackTitleVisible: false}}
                 />
             </Stack.Navigator>

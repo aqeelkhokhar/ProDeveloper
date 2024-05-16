@@ -1,9 +1,22 @@
-import React, {useEffect} from "react";
-import {SafeAreaView, Text, View} from "react-native";
-// import  {useEffect} from 'react-native'
+import React, {useEffect, useState} from "react";
+import {SafeAreaView, Text} from "react-native";
 import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 
-function HomeScreen({navigation}: any) {
+function HomeScreen() {
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber;
+    }, []);
+
     //for firbase real time database
     // const reference = database().ref('/users');
     // console.log('reference', reference);
@@ -27,7 +40,7 @@ function HomeScreen({navigation}: any) {
     }
 
     //real time listner
-    firestore().collection("ProDeveloperBackend").onSnapshot(onResult, onError);
+    // firestore().collection("ProDeveloperBackend").onSnapshot(onResult, onError);
 
     async function setFirestoreData() {
         const res = await firestore()
@@ -57,11 +70,7 @@ function HomeScreen({navigation}: any) {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <View>
-                <Text onPress={() => navigation.navigate("Notification")}>
-                    Home Screen
-                </Text>
-            </View>
+            <Text> Welcome to Pro Developer </Text>
         </SafeAreaView>
     );
 }

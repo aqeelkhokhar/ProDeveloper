@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import TabsScreen from "../TabsNavigator";
 import ProfileScreen from "../ProfileScreen";
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import SettingScreen from "../SettingScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
+import auth from "@react-native-firebase/auth";
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +42,8 @@ function drawerItems(screenData: any) {
 }
 
 function drawerCustomItems(navigation: any): React.JSX.Element {
+    const [user, setUser] = useState();
+    auth().onAuthStateChanged(user => setUser(user));
     return (
         <>
             <View
@@ -78,6 +81,32 @@ function drawerCustomItems(navigation: any): React.JSX.Element {
                     screenName: "Setting",
                     iconName: "gear",
                 })}
+            </View>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    marginBottom: 20,
+                }}
+            >
+                <TouchableOpacity
+                    onPress={async () =>
+                        user
+                            ? await auth().signOut()
+                            : navigation.navigate("SingIn")
+                    }
+                >
+                    {user ? (
+                        <Text style={{fontSize: 15, color: "red"}}>
+                            Sign Out
+                        </Text>
+                    ) : (
+                        <Text style={{fontSize: 15, color: "green"}}>
+                            Sign In
+                        </Text>
+                    )}
+                </TouchableOpacity>
             </View>
         </>
     );
