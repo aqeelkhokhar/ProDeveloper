@@ -3,8 +3,19 @@ import messaging from '@react-native-firebase/messaging';
 import analytics, { firebase } from '@react-native-firebase/analytics';
 import {NavigationContainer} from "@react-navigation/native";
 import StackScreen from "./MyApp/StackNavigator";
+import { Provider as PaperProvider } from 'react-native-paper';
+import { ThemeProvider, useTheme } from './ThemeContext';
 
 
+const ThemeProviderWrapper = ({ children }) => {
+  const { theme } = useTheme();
+
+  return (
+    <PaperProvider theme={theme}>
+      {children}
+    </PaperProvider>
+  );
+};
 
 function App() {
      const routeNameRef = useRef();
@@ -31,6 +42,8 @@ function App() {
 
 
   return (
+    <ThemeProvider>
+      <ThemeProviderWrapper>
     <NavigationContainer
       ref={navigationRef}
       onReady={() => {
@@ -49,8 +62,11 @@ function App() {
         routeNameRef.current = currentRouteName;
       }}
     >
+
     <StackScreen/>
-    </NavigationContainer>
+        </NavigationContainer>
+        </ThemeProviderWrapper>
+      </ThemeProvider>
   );
 };
 

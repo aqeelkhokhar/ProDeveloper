@@ -5,15 +5,17 @@ import ProfileScreen from "../ProfileScreen";
 import SettingScreen from "../SettingScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import {createMaterialBottomTabNavigator} from "react-native-paper/react-navigation";
+import {useTheme} from "../../ThemeContext";
 
 const Tab = createMaterialBottomTabNavigator();
 
 function TabsScreen() {
+    const {theme} = useTheme();
     return (
         <Tab.Navigator
             activeColor="#f0edf6"
             inactiveColor="#3e2465"
-            barStyle={{backgroundColor: "#f0c7ea"}}
+            barStyle={{backgroundColor: theme.colors.primary}}
         >
             <Tab.Screen
                 name="Home"
@@ -21,7 +23,11 @@ function TabsScreen() {
                 options={{
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Icon name="home" size={30} color="#51aff7" />
+                        <Icon
+                            name="home"
+                            size={30}
+                            color={theme.colors.iconsColor}
+                        />
                     ),
                 }}
             />
@@ -31,7 +37,11 @@ function TabsScreen() {
                 options={{
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Icon name="gear" size={30} color="#51aff7" />
+                        <Icon
+                            name="gear"
+                            size={30}
+                            color={theme.colors.iconsColor}
+                        />
                     ),
                 }}
             />
@@ -41,7 +51,11 @@ function TabsScreen() {
                 options={{
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Icon name="user" size={30} color="#51aff7" />
+                        <Icon
+                            name="user"
+                            size={30}
+                            color={theme.colors.iconsColor}
+                        />
                     ),
                 }}
             />
