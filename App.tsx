@@ -1,7 +1,7 @@
 import React from "react";
 import StackScreen from "./MyApp/StackNavigator";
 
-function App(): React.JSX.Element {
+function App() {
     return <StackScreen />;
 }
 

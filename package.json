@@ -5,7 +5,7 @@
     "scripts": {
         "android": "react-native run-android",
         "ios": "react-native run-ios --simulator='iPhone 15 Pro Max' ",
-        "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./",
+        "lint": "eslint . ",
         "start": "react-native start",
         "test": "jest",
         "prettier:write": "npx prettier --write MyApp/**/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
@@ -29,6 +29,8 @@
         "@babel/core": "^7.20.0",
         "@babel/preset-env": "^7.20.0",
         "@babel/runtime": "^7.20.0",
+        "@eslint/compat": "^1.0.3",
+        "@eslint/js": "^9.4.0",
         "@react-native/babel-preset": "0.73.21",
         "@react-native/eslint-config": "0.73.2",
         "@react-native/metro-config": "0.73.5",
@@ -38,16 +40,19 @@
         "@typescript-eslint/eslint-plugin": "^7.7.1",
         "babel-jest": "^29.6.3",
         "babel-plugin-module-resolver": "^5.0.2",
-        "eslint": "^9.1.1",
+        "eslint": "9.x",
         "eslint-config-airbnb-typescript": "^18.0.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-jsx-a11y": "^6.8.0",
-        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react": "^7.34.2",
+        "eslint-plugin-react-native": "^4.1.0",
+        "globals": "^15.3.0",
         "jest": "^29.6.3",
         "prettier": "^3.2.5",
         "react-test-renderer": "18.2.0",
-        "typescript": "5.0.4"
+        "typescript": "5.0.4",
+        "typescript-eslint": "^7.11.0"
     },
     "engines": {
         "node": ">=18"

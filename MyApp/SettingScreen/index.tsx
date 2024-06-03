@@ -1,7 +1,6 @@
 import React from "react";
-import {View, Text, SafeAreaView} from "react-native";
-
-function SettingScreen({navigation}: any) {
+import { Text, SafeAreaView} from "react-native";
+function SettingScreen({navigation}) {
     return (
         <SafeAreaView style={{flex: 1}}>
             <Text onPress={() => navigation.navigate("Home")}>

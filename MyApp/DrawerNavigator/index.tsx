@@ -11,10 +11,9 @@ import {
 } from "react-native";
 import SettingScreen from "../SettingScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
-
 const Drawer = createDrawerNavigator();
 
-function drawerItems(screenData: any) {
+function drawerItems(screenData) {
     const {navigation, screenHeader, screenName, iconName} = screenData;
     return (
         <>
@@ -40,7 +39,7 @@ function drawerItems(screenData: any) {
     );
 }
 
-function drawerCustomItems(navigation: any): React.JSX.Element {
+function drawerCustomItems(navigation) {
     return (
         <>
             <View
@@ -83,7 +82,7 @@ function drawerCustomItems(navigation: any): React.JSX.Element {
     );
 }
 
-const CustomDrawerContent = (props: any) => {
+const CustomDrawerContent = (props) => {
     const {navigation} = props;
     return (
         <SafeAreaView style={{flex: 1, marginTop: 15, marginHorizontal: 2}}>
