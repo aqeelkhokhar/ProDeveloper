@@ -42,8 +42,25 @@ function drawerItems(screenData: any) {
 
 function drawerCustomItems(navigation: any): React.JSX.Element {
     return (
-        <>
-            <View
+        <><View
+                style={{
+                    marginTop: 5,
+                    width: "auto",
+                    height: "5%",
+                    backgroundColor: "#f0c7ea",
+                    borderRadius: 10,
+                    borderColor: "blue",
+                    justifyContent: "center",
+                }}
+            >
+                {drawerItems({
+                    navigation: navigation,
+                    screenHeader: "My Home",
+                    screenName: "Home",
+                    iconName: "home",
+                })}
+            </View>
+            {/* <View
                 style={{
                     marginTop: 5,
                     width: "auto",
@@ -78,6 +95,11 @@ function drawerCustomItems(navigation: any): React.JSX.Element {
                     screenName: "Setting",
                     iconName: "gear",
                 })}
+            </View> */}
+            <View style={{flex: 1, justifyContent:'flex-end',alignItems:'center', paddingBottom:'10%'}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Login')} >
+                    <Text style={{fontSize:15, color:'#51aff7'}}>SignIn</Text>
+                </TouchableOpacity>
             </View>
         </>
     );

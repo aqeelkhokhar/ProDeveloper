@@ -4,12 +4,14 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import DrawerScreen from "../DrawerNavigator";
 import NotificationScreen from "../NotificationScreen";
+import LoginScreen from "../SingInScreen";
+import RegistrationScreen from "../RegisterScreen";
 const Stack = createNativeStackNavigator();
 
 function StackScreen() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName="drawer">
                 <Stack.Screen
                     name="drawer"
                     component={DrawerScreen}
@@ -20,6 +22,11 @@ function StackScreen() {
                     component={NotificationScreen}
                     options={{ headerBackTitleVisible: false }}
                 />
+                <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                />
+                <Stack.Screen name="Registration" component={RegistrationScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

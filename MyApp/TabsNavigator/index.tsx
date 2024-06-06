@@ -4,6 +4,8 @@ import HomeScreen from "../HomesScreen";
 import ProfileScreen from "../ProfileScreen";
 import SettingScreen from "../SettingScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
+import AntIcons from "react-native-vector-icons/AntDesign";
+import EntypIcons from "react-native-vector-icons/Entypo"
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -18,8 +20,9 @@ function TabsScreen() {
                 component={HomeScreen}
                 options={{
                     headerShown: false,
+                    tabBarLabel: 'Active Todos',
                     tabBarIcon: () => (
-                        <Icon name="home" size={30} color="#51aff7" />
+                        <AntIcons name="bars" size={30} color="#51aff7" />
                     ),
                 }}
             />
@@ -28,8 +31,9 @@ function TabsScreen() {
                 component={SettingScreen}
                 options={{
                     headerShown: false,
+                    tabBarLabel: 'Completed',
                     tabBarIcon: () => (
-                        <Icon name="gear" size={30} color="#51aff7" />
+                        <AntIcons name="checksquareo" size={30} color="#51aff7" />
                     ),
                 }}
             />
@@ -38,8 +42,9 @@ function TabsScreen() {
                 component={ProfileScreen}
                 options={{
                     headerShown: false,
+                    tabBarLabel: 'Users',
                     tabBarIcon: () => (
-                        <Icon name="user" size={30} color="#51aff7" />
+                        <EntypIcons name="add-user" size={30} color="#51aff7" />
                     ),
                 }}
             />

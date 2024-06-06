@@ -1,12 +1,9 @@
 import * as React from "react";
 import {
-    PermissionsAndroid,
-    Platform,
     SafeAreaView,
     Text,
     View,
 } from "react-native";
-import DeviceInfo from "react-native-device-info";
 
 function HomeScreen({navigation}: any) {
 
