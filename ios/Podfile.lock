@@ -15,6 +15,10 @@ PODS:
     - hermes-engine/Pre-built (= 0.73.7)
   - hermes-engine/Pre-built (0.73.7)
   - libevent (2.1.12)
+  - opentok-react-native (2.27.4):
+    - OTXCFramework (= 2.27.3)
+    - React
+  - OTXCFramework (2.27.3)
   - RCT-Folly (2022.05.16.00):
     - boost
     - DoubleConversion
@@ -1085,6 +1089,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - opentok-react-native (from `../node_modules/opentok-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1140,6 +1145,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - libevent
+    - OTXCFramework
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1156,6 +1162,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-02-20-RNv0.73.5-18f99ace4213052c5e7cdbcd39ee9766cd5df7e4
+  opentok-react-native:
+    :path: "../node_modules/opentok-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -1262,6 +1270,8 @@ SPEC CHECKSUMS:
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 39589e9c297d024e90fe68f6830ff86c4e01498a
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  opentok-react-native: 170ec0e7198fbfb776e03dcdac9728f7c7b4310f
+  OTXCFramework: fd1f5c402e4e58c25b0550238e46fe215a4e7dfd
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
   RCTRequired: 77f73950d15b8c1a2b48ba5b79020c3003d1c9b5
   RCTTypeSafety: ede1e2576424d89471ef553b2aed09fbbcc038e3
