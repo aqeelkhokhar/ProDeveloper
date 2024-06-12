@@ -1,13 +1,14 @@
-import { OTPublisher, OTSession, OTSubscriber } from "opentok-react-native";
 import React, { useState } from "react";
-import { Button, Text, View, Alert, StyleSheet } from "react-native";
+import { View, Alert, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { OTSession, OTPublisher, OTSubscriber } from "opentok-react-native";
 
 function VideoCallingScreen({ route }) {
     const Data = route.params.data;
 
     const [videoEnabled, setVideoEnabled] = useState(true);
     const [audioEnabled, setAudioEnabled] = useState(true);
-    const [streamProperties, setStreamProperties] = useState({});
+    const [camera, setCamera] = useState('front');
 
     const onSessionConnected = () => {
         console.log("Session connected");
@@ -17,40 +18,17 @@ function VideoCallingScreen({ route }) {
         console.log("Session disconnected");
     };
 
-    const onStreamCreated = event => {
-        console.log("Stream created", event);
-        setStreamProperties(prevState => ({
-            ...prevState,
-            [event.streamId]: { subscribeToAudio: true, subscribeToVideo: true }
-        }));
-    };
-
-    const onStreamDestroyed = event => {
-        console.log("Stream destroyed", event);
-        setStreamProperties(prevState => {
-            const updatedState = { ...prevState };
-            delete updatedState[event.streamId];
-            return updatedState;
-        });
-    };
-
-    const onError = error => {
+    const onError = (error) => {
         console.error("Error in session", error);
         Alert.alert("Error", "An error occurred: " + error.message);
     };
 
     const toggleVideo = () => {
-        setVideoEnabled(!videoEnabled);
+        setVideoEnabled((prev) => !prev);
     };
 
     const toggleAudio = () => {
-        setAudioEnabled(!audioEnabled);
-    };
-
-    const switchCamera = () => {
-        // Method to switch camera (implementation depends on the library's support)
-        // Example:
-        // publisherRef.current.switchCamera();
+        setAudioEnabled((prev) => !prev);
     };
 
     return (
@@ -59,31 +37,53 @@ function VideoCallingScreen({ route }) {
                 apiKey={ Data.apiKey }
                 sessionId={ Data.sessionId }
                 token={ Data.token }
-                options={ { androidOnTop: 'publisher' } }
+                options={ { androidOnTop: "publisher" } }
                 eventHandlers={ {
                     sessionConnected: onSessionConnected,
                     sessionDisconnected: onSessionDisconnected,
-                    streamCreated: onStreamCreated,
-                    streamDestroyed: onStreamDestroyed,
                     error: onError,
                 } }
             >
-                <OTSubscriber
-                    style={ styles.subscriber }
-                    streamProperties={ streamProperties }
-                />
+                <OTSubscriber style={ styles.subscriber }
+                    properties={ {
+                        publishVideo: videoEnabled,
+                        publishAudio: audioEnabled,
+                        cameraPosition: camera,
+                    } } />
                 <OTPublisher
                     style={ styles.publisher }
                     properties={ {
                         publishVideo: videoEnabled,
                         publishAudio: audioEnabled,
+                        cameraPosition: camera,
                     } }
                 />
             </OTSession>
             <View style={ styles.controls }>
-                <Button title={ videoEnabled ? "Disable Video" : "Enable Video" } onPress={ toggleVideo } />
-                <Button title={ audioEnabled ? "Mute" : "Unmute" } onPress={ toggleAudio } />
-                <Button title="Switch Camera" onPress={ switchCamera } />
+                <Icon
+                    name={ videoEnabled ? "video" : "video-slash" }
+                    size={ 30 }
+                    color="#51aff7"
+                    onPress={ toggleVideo }
+                />
+                <Icon
+                    name={ audioEnabled ? "microphone" : "microphone-slash" }
+                    size={ 30 }
+                    color="#51aff7"
+                    onPress={ toggleAudio }
+                />
+                <Icon
+                    name="camera"
+                    size={ 30 }
+                    color="#51aff7"
+                    onPress={ () => {
+                        if (camera === 'front') {
+                            setCamera('back');
+                        } else {
+                            setCamera('front');
+                        }
+                    } }
+                />
             </View>
         </View>
     );
@@ -92,10 +92,10 @@ function VideoCallingScreen({ route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
     },
     publisher: {
-        position: 'absolute',
+        position: "absolute",
         top: 10,
         right: 10,
         width: 150,
@@ -103,17 +103,17 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     subscriber: {
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         zIndex: 1,
     },
     controls: {
-        position: 'absolute',
+        position: "absolute",
         bottom: 20,
         left: 20,
         right: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        flexDirection: "row",
+        justifyContent: "space-around",
         zIndex: 3,
     },
 });
