@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import DrawerScreen from "../DrawerNavigator";
 import NotificationScreen from "../NotificationScreen";
 import VideoCallingScreen from "../VieoCalling";
+import PatientHistory from "../PatientHistoryScreen";
 const Stack = createNativeStackNavigator();
 
 function StackScreen() {
@@ -25,6 +26,10 @@ function StackScreen() {
                     name="Video Calling"
                     component={VideoCallingScreen}
                     options={{headerBackTitleVisible: true}}
+                />
+                <Stack.Screen
+                    name="PatientHistory"
+                    component={PatientHistory}
                 />
             </Stack.Navigator>
         </NavigationContainer>

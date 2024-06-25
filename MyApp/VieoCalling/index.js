@@ -1,21 +1,38 @@
-import React, { useState } from "react";
-import { View, Alert, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Alert, StyleSheet, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { OTSession, OTPublisher, OTSubscriber } from "opentok-react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { setSessionConnected, clearVideoSession } from "../GlobalStore/slice";
+import { selectVideoSession } from "../GlobalStore/selector";
 
-function VideoCallingScreen({ route }) {
-    const Data = route.params.data;
+function VideoCallingScreen({ navigation }) {
+    const dispatch = useDispatch();
+    const videoSession = useSelector(selectVideoSession);
+    console.log("VideoCallingScreen", videoSession);
 
+    // State variables for video, audio, and camera
     const [videoEnabled, setVideoEnabled] = useState(true);
     const [audioEnabled, setAudioEnabled] = useState(true);
-    const [camera, setCamera] = useState('front');
+    const [camera, setCamera] = useState("front");
+
+    useEffect(() => {
+        dispatch(setSessionConnected(true));
+
+        return () => {
+            dispatch(setSessionConnected(false));
+            dispatch(clearVideoSession());
+        };
+    }, [dispatch]);
 
     const onSessionConnected = () => {
         console.log("Session connected");
+        dispatch(setSessionConnected(true));
     };
 
     const onSessionDisconnected = () => {
         console.log("Session disconnected");
+        dispatch(setSessionConnected(false));
     };
 
     const onError = (error) => {
@@ -31,12 +48,20 @@ function VideoCallingScreen({ route }) {
         setAudioEnabled((prev) => !prev);
     };
 
+    if (!videoSession.sessionId || !videoSession.apiKey || !videoSession.token) {
+        return (
+            <View style={ styles.container }>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
     return (
         <View style={ styles.container }>
             <OTSession
-                apiKey={ Data.apiKey }
-                sessionId={ Data.sessionId }
-                token={ Data.token }
+                apiKey={ videoSession.apiKey }
+                sessionId={ videoSession.sessionId }
+                token={ videoSession.token }
                 options={ { androidOnTop: "publisher" } }
                 eventHandlers={ {
                     sessionConnected: onSessionConnected,
@@ -44,12 +69,6 @@ function VideoCallingScreen({ route }) {
                     error: onError,
                 } }
             >
-                <OTSubscriber style={ styles.subscriber }
-                    properties={ {
-                        publishVideo: videoEnabled,
-                        publishAudio: audioEnabled,
-                        cameraPosition: camera,
-                    } } />
                 <OTPublisher
                     style={ styles.publisher }
                     properties={ {
@@ -58,13 +77,20 @@ function VideoCallingScreen({ route }) {
                         cameraPosition: camera,
                     } }
                 />
+                <OTSubscriber
+                    style={ styles.subscriber }
+                    properties={ {
+                        subscribeToVideo: true,
+                        subscribeToAudio: true,
+                    } }
+                />
             </OTSession>
             <View style={ styles.controls }>
                 <Icon
                     name={ videoEnabled ? "video" : "video-slash" }
                     size={ 30 }
                     color="#51aff7"
-                    onPress={ toggleVideo }
+                    onPress={ () => navigation.navigate('PatientHistory') }
                 />
                 <Icon
                     name={ audioEnabled ? "microphone" : "microphone-slash" }
@@ -77,10 +103,10 @@ function VideoCallingScreen({ route }) {
                     size={ 30 }
                     color="#51aff7"
                     onPress={ () => {
-                        if (camera === 'front') {
-                            setCamera('back');
+                        if (camera === "front") {
+                            setCamera("back");
                         } else {
-                            setCamera('front');
+                            setCamera("front");
                         }
                     } }
                 />

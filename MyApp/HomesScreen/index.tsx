@@ -3,10 +3,10 @@ import axios from "axios";
 import {Button, SafeAreaView, Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {globalSelector} from "../GlobalStore/selector";
-import globalReducer, {video} from "../GlobalStore/slice";
+import globalReducer, {video, setVideoSession} from "../GlobalStore/slice";
 import {injectReducer} from "redux-injectors";
 
-function HomeScreen({navigation}: any) {
+function HomeScreen({navigation}) {
     const dispatch = useDispatch();
     injectReducer("global", globalReducer);
     dispatch(video(34)); // test value set
@@ -32,9 +32,13 @@ function HomeScreen({navigation}: any) {
                 console.log("Token generated", res?.data);
 
                 if (res?.data) {
-                    navigation.navigate("Video Calling", {
-                        data: res?.data,
-                    });
+                    const sessionData = {
+                        sessionId: res.data.sessionId,
+                        apiKey: res.data.apiKey,
+                        token: res.data.token,
+                    };
+                    dispatch(setVideoSession(sessionData));
+                    navigation.navigate("Video Calling");
                 }
             }
         } catch (error) {
@@ -55,7 +59,8 @@ function HomeScreen({navigation}: any) {
                 "data received from async joinVideo",
                 lastCredential,
             );
-            navigation.navigate("Video Calling", {data: lastCredential});
+            dispatch(setVideoSession(lastCredential));
+            navigation.navigate("Video Calling");
         } else {
             console.error("No credentials found or invalid response");
         }

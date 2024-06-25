@@ -1,9 +1,14 @@
-// selectors.js
+// GlobalStore/selectors.js
 import {createSelector} from "reselect";
 
-const selectCounterState = (state: any) => state.global;
+const selectGlobalState = state => state.global;
 
 export const globalSelector = createSelector(
-    [selectCounterState],
-    counter => counter.value,
+    [selectGlobalState],
+    global => global.value,
+);
+
+export const selectVideoSession = createSelector(
+    [selectGlobalState],
+    global => global.videoSession,
 );
