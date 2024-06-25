@@ -1,14 +1,24 @@
+import React, {useState} from "react";
 import axios from "axios";
-import React, { useState} from "react";
 import {Button, SafeAreaView, Text, View} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
+import {globalSelector} from "../GlobalStore/selector";
+import globalReducer, {video} from "../GlobalStore/slice";
+import {injectReducer} from "redux-injectors";
 
 function HomeScreen({navigation}: any) {
+    const dispatch = useDispatch();
+    injectReducer("global", globalReducer);
+    dispatch(video(34)); // test value set
+    const count = useSelector(globalSelector); // get setting value for testing purposes
+
+    console.log(count);
     const [sessionId, setSessionId] = useState(null);
 
     async function startVideo() {
         try {
             const response = await axios.get(
-                `http://192.168.11.101:3000/video/session`,
+                `http://192.168.11.63:3000/video/session`,
                 {headers: {key: "IBZJC9LNE"}},
             );
             console.log("response", response?.data?.sessionId);
@@ -16,7 +26,7 @@ function HomeScreen({navigation}: any) {
             if (response?.data?.sessionId) {
                 console.log("inside get token");
                 const res = await axios.get(
-                    `http://192.168.11.101:3000/video/token/${response?.data?.sessionId}`,
+                    `http://192.168.11.63:3000/video/token/${response?.data?.sessionId}`,
                     {headers: {key: "IBZJC9LNE"}},
                 );
                 console.log("Token generated", res?.data);
@@ -33,15 +43,19 @@ function HomeScreen({navigation}: any) {
     }
 
     async function joinVideo() {
-        console.log('session joined', sessionId)
+        console.log("session joined", sessionId);
         const response = await axios.get(
-            `http://192.168.11.101:3000/video/all_credentials`,
+            `http://192.168.11.63:3000/video/all_credentials`,
             {headers: {key: "IBZJC9LNE"}},
         );
         if (response.status === 200 && response.data.length > 0) {
             const lastCredential = response.data[response.data.length - 1];
-            console.log(response.status, "data received from async joinVideo", lastCredential);
-            navigation.navigate("Video Calling", { data: lastCredential });
+            console.log(
+                response.status,
+                "data received from async joinVideo",
+                lastCredential,
+            );
+            navigation.navigate("Video Calling", {data: lastCredential});
         } else {
             console.error("No credentials found or invalid response");
         }
