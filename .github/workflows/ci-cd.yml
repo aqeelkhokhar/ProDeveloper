@@ -20,6 +20,7 @@ jobs:
               uses: actions/setup-java@v2
               with:
                   java-version: "17"
+                  distribution: "zulu" # Use Zulu as the Java distribution
 
             - name: Install Node.js
               uses: actions/setup-node@v2
@@ -68,14 +69,14 @@ jobs:
             - name: Build iOS Release IPA
               run: |
                   cd ios
-                  xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/YourApp.xcarchive
+                  xcodebuild -workspace ProDeveloper.xcworkspace -scheme ProDeveloper -sdk iphoneos -configuration Release archive -archivePath $PWD/build/ProDeveloper.xcarchive
 
             - name: Export IPA
               run: |
-                  xcodebuild -exportArchive -archivePath $PWD/build/YourApp.xcarchive -exportOptionsPlist $PWD/exportOptions.plist -exportPath $PWD/build
+                  xcodebuild -exportArchive -archivePath $PWD/build/ProDeveloper.xcarchive -exportOptionsPlist $PWD/exportOptions.plist -exportPath $PWD/build
 
             - name: Upload iOS IPA as an artifact
               uses: actions/upload-artifact@v4
               with:
                   name: ios-app-release.ipa
-                  path: ios/build/YourApp.ipa
+                  path: ios/build/ProDeveloper.ipa
